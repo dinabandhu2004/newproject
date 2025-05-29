@@ -1,25 +1,25 @@
 import React, { useState } from 'react'
 import data from './data'
+import './accordian.css'
 
 const Accordian = () => {
-    console.log(data)
+    // console.log(data)
     const [selected, setselected] = useState(null)
-    function handelsingleSelection(getElementById){
-         setselected(getElementById === selected? null:getElementById)
-         console.log(selected)
-        //  setselected([...selected,getElementById])
-    } 
-    console.log(selected)
+    function handelsingleSelection(getElementById) {
+        setselected(getElementById === selected ? null : getElementById)
+    }
 
     return (
         <>
             <div className='accordian'>
                 {
-                    data && data.length > 0 ? data.map(dataItem => <div className='item'>
-                        <div onClick={()=>handelsingleSelection(dataItem.id)} className='title'>
-                            <h3>{dataItem.question}</h3> <span>+</span>
+                    data && data.length > 0 ? data.map(dataItem => <div key={dataItem.id} className='item'>
+                        <div onClick={() => handelsingleSelection(dataItem.id)} className='title'>
+                            <h2>{dataItem.question} </h2> {selected === dataItem.id ? <div className='sign'>-</div> : <div className='sign'>+</div>}
                         </div>
-                        { selected===dataItem.id?<div className='content'>{dataItem.answer}</div>:null}
+                        <div className={`content ${selected === dataItem.id ? 'show' : ''}`}>
+                            {dataItem.answer}
+                        </div>
                     </div>) : <div>No data found</div>
                 }
 
